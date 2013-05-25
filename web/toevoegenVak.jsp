@@ -21,35 +21,26 @@
             <div class="holder_content">
 
                 <section class="group1">
-                    <form action="DocentServlet">
+                    <form action="VakServlet">
                         <table>
                             <tr>
-                                <th>Voornaam: </th>
-                                <td><input type="text" name="voornaamDocent" id="voornaam" value="${docent.voornaam}"/>
+                                <th>Nummer: </th>
+                                <td><input type="text" name="nummerVak" id="nummer" value="${vak.nummer}"/>
                                     
                             </tr>
                             <tr>
-                                <th>Familienaam: </th>
-                                <td> <input type="text" name="familienaamDocent" id="familienaam" value="${docent.familienaam}"/>
+                                <th>Naam: </th>
+                                <td> <input type="text" name="naamVak" id="naam" value="${vak.naam}"/>
                                     </td>
                             </tr>
-                            <tr>
-                                <th>Email: </th>
-                                <td><input type="text" name="emailDocent" id="email" value="${docent.email}"/></td>
-                            </tr>
-                            <tr>
-                                <th>Nummer: </th>
-                                <td>
-                                    <input type="text" name="nummerDocent" id="nummer" value="${docent.nummer}"/>
-                                </td>
-                            </tr>
+                          
                             
                             <tr>
                                 <td></td>
-                                <td><input type="submit" value="Docent toevoegen" name="docentToevoegenBevestigen"/></td>
+                                <td><input type="submit" value="Vak toevoegen" name="vakToevoegenBevestigen"/></td>
                             </tr>
                         </table>
-                                 <input type="hidden" value="${docent.id}" name="docentId"/>
+                                 <input type="hidden" value="${vak.id}" name="vakId"/>
                     </form>
                 </section>
             </div>

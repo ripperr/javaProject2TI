@@ -50,9 +50,10 @@ public class LoginServlet extends HttpServlet {
                 em.close();
                 if(docent!=null)
                 {
-                session.setAttribute("ingelogd", docent);
+                    
+                session.setAttribute("ingelogd", docent.get(0));
                 }
-              
+                
                response.sendRedirect("ManageServlet?examen=examen");
                 
             }

@@ -218,37 +218,7 @@ public class ManageServlet extends HttpServlet {
              em.close();
              rd = request.getRequestDispatcher("overzichtExamens.jsp");
              rd.forward(request, response);
-             } else if (!(request.getParameter("docentToevoegen") == null)) {
-             rd = request.getRequestDispatcher("toevoegenDocent.jsp");
-             rd.forward(request, response);
-             } else if (!(request.getParameter("docentToevoegenBevestigen") == null)) {
-             String voornaam = request.getParameter("voornaamDocent");
-             String familienaam = request.getParameter("familienaamDocent");
-             String email = request.getParameter("emailDocent");
-             String nummer = request.getParameter("nummerDocent");
-
-
-             Docent docent = new Docent();
-             docent.setVoornaam(voornaam);
-             docent.setFamilienaam(familienaam);
-             docent.setEmail(email);
-             docent.setNummer(nummer);
-             EntityTransaction tx = em.getTransaction();
-
-             tx.begin();
-             em.persist(docent);
-             tx.commit();
-
-
-
-             Query q = em.createNamedQuery("Docenten.alle");
-             List<Docent> docenten = q.getResultList();
-             session.setAttribute("docenten", docenten);
-             em.close();
-
-             rd = request.getRequestDispatcher("overzichtExamens.jsp");
-             rd.forward(request, response);
-             } else if (!(request.getParameter("deleteExamen") == null)) {
+             }  else if (!(request.getParameter("deleteExamen") == null)) {
              String examenId = request.getParameter("deleteExamen");
              Examen examen = em.find(Examen.class, Long.parseLong(examenId));
 

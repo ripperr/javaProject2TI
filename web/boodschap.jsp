@@ -8,7 +8,7 @@
    
         <h1>${titel}</h1>
         <p>${boodschap}</p>
-        <p><a href="LokaalServlet?lokalen" style="color: #CC0000">Terug</a></p>
+        <p><a href="ManageServlet?home" style="color: #CC0000">Terug</a></p>
 <%@ include file="footer.jsp" %>   
     </body>
 </html>

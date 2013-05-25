@@ -40,7 +40,7 @@
 
                                         </c:forEach>
                                     </select></td>
-                                <td><form action="ManageServlet">
+                                <td><form action="DocentServlet">
                                         <input type="submit" value="Nieuwe docent toevoegen" name="docentToevoegen"/>
                                     </form></td>
                             </tr>

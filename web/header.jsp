@@ -38,13 +38,18 @@
 
                 <nav>
                     <ul>
-                        <li><a href="/2TI3_Cominotto_Robin_project2013/ManageServlet?home=home">Home</a>
-
-                        </li>
+                        <li><a href="/2TI3_Cominotto_Robin_project2013/ManageServlet?home=home">Home</a></li>
                         <li><a href="/2TI3_Cominotto_Robin_project2013/ManageServlet?examen=regeling">Examenregeling</a></li>
-                        <li><a href="/2TI3_Cominotto_Robin_project2013/DocentServlet?docent=overzicht">Docenten</a></li>
-                        <li><a href="/2TI3_Cominotto_Robin_project2013/LokaalServlet?lokalen=overzicht">Lokaal</a></li>
-                        <li><a href="/2TI3_Cominotto_Robin_project2013/ManageServlet?docent=regeling">Vak</a></li>
+
+                        <c:choose>
+                            <c:when test="${sessionScope.ingelogd!=null}">
+                                <li><a href="/2TI3_Cominotto_Robin_project2013/DocentServlet?docenten=overzicht">Docenten</a></li>
+                                <li><a href="/2TI3_Cominotto_Robin_project2013/LokaalServlet?lokalen=overzicht">Lokalen</a></li>
+                                <li><a href="/2TI3_Cominotto_Robin_project2013/VakServlet?vakken=regeling">Vakken</a></li>
+                                <li>Ingelogd als ${sessionScope.ingelogd.voornaam} ${sessionScope.ingelogd.familienaam}</li>
+                            </c:when>
+                        </c:choose>
+
 
 
 
