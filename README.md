@@ -1,6 +1,6 @@
-javaProject2TI
+javaProject2TI: Projectoefening mediatheek
 ==============
-Projectoefening mediatheek.
+
 Als je project voldoet aan al de basisvereisten dan behaal je 12/20. Als je uitbreidingen maakt kan je nog extra punten verdienen. 
 De deadline voor het afwerken van je volledige project is zondag 26 mei 2013 18u. Je levert via het assignment op Toledo je Netbeans-project op.
 Basisvereisten:
@@ -12,7 +12,9 @@ b.	Implementeer mbv JPA de mapping voor dit klassendiagram. Deadline (opleveren 
 dinsdag 30 april 2013 16u35
 
 Kies zelf welke strategy je neemt om de overerving te mappen. 
-![ScreenShot](https://raw.github.com/robin-cominotto/javaProject2TI/master/UML%20schema.jpg).
+![ScreenShot](https://raw.github.com/robin-cominotto/javaProject2TI/master/UML%20schema.jpg)
+
+
 Behoud de namen van de kolommen en tabellen volgens bovenstaand schema. Voeg zelf aan de tabellen gegevens toe om te kunnen testen.
 
 
