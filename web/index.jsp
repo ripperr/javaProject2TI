@@ -25,27 +25,7 @@
             <!--start holder-->
             <div class="holder_content">
 
-                <section class="group1">
-                    <form action="LoginServlet">
-
-                        <table>
-                            <tr>
-                                <td><label for="gebruikersnaam">gebruikersnaam:</label></td>
-                                <td><input type="text" name="gebruikersnaam" value="" id="gebruikersnaam" size="30" class="login"  /></td>
-                            </tr>
-                            <tr>
-                                <td><label for="wachtwoord">wachtwoord:</label></td>
-                                <td><input type="password" name="wachtwoord" value="" id="wachtwoord" size="30" class="login"  /></td>
-                            </tr>
-                            <tr>
-                                <td><input type="submit" name="inloggen" value="Log in" id = "inloggen" /></td>
-                                <td></td>
-                            </tr>
-                        </table>
-
-
-                    </form>
-                </section>
+                
             </div>
 
             <!--end holder-->

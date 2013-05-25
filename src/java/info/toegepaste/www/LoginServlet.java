@@ -56,6 +56,20 @@ public class LoginServlet extends HttpServlet {
                 
                response.sendRedirect("ManageServlet?examen=examen");
                 
+            } else if (request.getParameter("uitloggen") != null) {
+                
+               session.invalidate();
+               
+               
+               response.sendRedirect("ManageServlet?examen=examen");
+                
+            }
+            else if (request.getParameter("inloggenPagina") != null) {
+                out.println("hello");
+                
+                
+               response.sendRedirect("login.jsp");
+                
             }
 
         } finally {

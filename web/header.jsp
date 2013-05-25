@@ -40,14 +40,20 @@
                     <ul>
                         <li><a href="/2TI3_Cominotto_Robin_project2013/ManageServlet?home=home">Home</a></li>
                         <li><a href="/2TI3_Cominotto_Robin_project2013/ManageServlet?examen=regeling">Examenregeling</a></li>
-
+                       
                         <c:choose>
                             <c:when test="${sessionScope.ingelogd!=null}">
                                 <li><a href="/2TI3_Cominotto_Robin_project2013/DocentServlet?docenten=overzicht">Docenten</a></li>
                                 <li><a href="/2TI3_Cominotto_Robin_project2013/LokaalServlet?lokalen=overzicht">Lokalen</a></li>
                                 <li><a href="/2TI3_Cominotto_Robin_project2013/VakServlet?vakken=regeling">Vakken</a></li>
-                                <li>Ingelogd als ${sessionScope.ingelogd.voornaam} ${sessionScope.ingelogd.familienaam}</li>
-                            </c:when>
+                                <li>Ingelogd als ${sessionScope.ingelogd.voornaam} ${sessionScope.ingelogd.familienaam} <form action="LoginServlet"> <input type="submit" name="uitloggen" id="uitloggen" value="Uitloggen"/></form></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li><form action="LoginServlet"> <input type="submit" name="inloggenPagina" id="inloggenPagina" value="Inloggen"/></form></li>
+                            </c:otherwise>
                         </c:choose>
 
 
