@@ -5,7 +5,6 @@
 package info.toegepaste.www;
 
 import info.toegepaste.www.entity.Docent;
-import info.toegepaste.www.entity.Examen;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;

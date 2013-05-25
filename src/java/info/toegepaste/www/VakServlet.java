@@ -5,14 +5,9 @@
 package info.toegepaste.www;
 
 import info.toegepaste.www.entity.*;
-import info.toepaste.www.enumeration.Soort;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
