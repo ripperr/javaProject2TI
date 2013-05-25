@@ -53,7 +53,7 @@ public class LokaalServlet extends HttpServlet {
 
                 em.close();
                 request.setAttribute("lokalen", lokalen);
-                
+
                 rd = request.getRequestDispatcher("overzichtLokalen.jsp");
                 rd.forward(request, response);
 
@@ -70,12 +70,12 @@ public class LokaalServlet extends HttpServlet {
             } else if (!(request.getParameter("toevoegenLokaalBevestigen") == null)) {
                 String nummer = request.getParameter("nummer");
                 String aantalPlaatsen = request.getParameter("aantalPlaatsen");
-                String lokaalType = request.getParameter("lokaalType");
+                String lokaalType = request.getParameter("soortLokaal");
                 String lokaalId = request.getParameter("lokaalId");
                 String laptop = request.getParameter("laptop");
                 String info = request.getParameter("info");
                 String whiteboard = request.getParameter("whiteboard");
-                
+
                 Lokaal lokaal;
 
                 if (lokaalType.equals("GewoonLokaal")) {
@@ -93,51 +93,81 @@ public class LokaalServlet extends HttpServlet {
                 if (!lokaalId.isEmpty() && !(lokaalId == null)) {
                     lokaal.setId(Long.parseLong(lokaalId));
                 }
+
+
                 lokaal.setAantalPlaatsen(Integer.parseInt(aantalPlaatsen));
                 lokaal.setNummer(nummer);
-                
+
                 EntityTransaction tx = em.getTransaction();
 
                 tx.begin();
                 if (!lokaalId.isEmpty() && !(lokaalId == null)) {
+                    out.println(lokaal.getId());
+                    out.println("merge");
+                    
                     em.merge(lokaal);
+                 
+            
+                   
                 } else {
+                    out.println("persist");
                     em.persist(lokaal);
                 }
+
+
+
+
                 tx.commit();
-
+                Query q = em.createNamedQuery("Lokaal.alle");
+                List<Lokaal> lokalen = q.getResultList();
+                request.setAttribute("lokalen", lokalen);
                 em.close();
-                rd = request.getRequestDispatcher("overzichtExamens.jsp");
+                rd = request.getRequestDispatcher("overzichtLokalen.jsp");
                 rd.forward(request, response);
-            } else if (!(request.getParameter("docentToevoegen") == null)) {
-                rd = request.getRequestDispatcher("toevoegenDocent.jsp");
-                rd.forward(request, response);
-            } else if (!(request.getParameter("docentToevoegenBevestigen") == null)) {
-                String voornaam = request.getParameter("voornaamDocent");
-                String familienaam = request.getParameter("familienaamDocent");
-                String email = request.getParameter("emailDocent");
-                String nummer = request.getParameter("nummerDocent");
+            } else if (!(request.getParameter("deleteLokaal") == null)) {
+                String lokaalId = request.getParameter("deleteLokaal");
+                Lokaal lokaal = em.find(Lokaal.class, Long.parseLong(lokaalId));
 
 
-                Docent docent = new Docent();
-                docent.setVoornaam(voornaam);
-                docent.setFamilienaam(familienaam);
-                docent.setEmail(email);
-                docent.setNummer(nummer);
                 EntityTransaction tx = em.getTransaction();
 
                 tx.begin();
-                em.persist(docent);
-                tx.commit();
+                try {
+                    em.remove(lokaal);
+                    tx.commit();
+                } catch (Exception e) {
+                    Query q = em.createNamedQuery("Lokaal.alle");
+                    List<Lokaal> lokalen = q.getResultList();
+                    request.setAttribute("lokalen", lokalen);
+                    em.close();
+                    String boodschap = "Dit lokaal kan niet verwijderd worden!";
+                    request.setAttribute("boodschap", boodschap);
+                    rd = request.getRequestDispatcher("boodschap.jsp");
+                    rd.forward(request, response);
+                }
 
+                Query q = em.createNamedQuery("Lokaal.alle");
+                List<Lokaal> lokalen = q.getResultList();
 
+                request.setAttribute("lokalen", lokalen);
 
-                Query q = em.createNamedQuery("Docenten.alle");
-                List<Docent> docenten = q.getResultList();
-                session.setAttribute("docenten", docenten);
                 em.close();
 
-                rd = request.getRequestDispatcher("overzichtExamens.jsp");
+                rd = request.getRequestDispatcher("overzichtLokalen.jsp");
+                rd.forward(request, response);
+            } else if (!(request.getParameter("wijzigenLokaal") == null)) {
+                String[] lokalen = new String[]{"GewoonLokaal", "ComputerLokaal"};
+                request.setAttribute("lokaalTypes", lokalen);
+
+                String lokaalId = request.getParameter("wijzigenLokaal");
+                Lokaal lokaal = em.find(Lokaal.class, Long.parseLong(lokaalId));
+
+
+
+                em.close();
+
+                request.setAttribute("lokaal", lokaal);
+                rd = request.getRequestDispatcher("toevoegenLokaal.jsp");
                 rd.forward(request, response);
             }
 
