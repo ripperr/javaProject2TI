@@ -43,7 +43,7 @@ public class VakServlet extends HttpServlet {
             RequestDispatcher rd = null;
             emf = Persistence.createEntityManagerFactory("2TI3_Cominotto_Robin_project2013PU");
             EntityManager em = emf.createEntityManager();
-
+            if(session.getAttribute("ingelogd")!=null){
             if (!(request.getParameter("vakken") == null)) {
 
 
@@ -133,6 +133,9 @@ public class VakServlet extends HttpServlet {
 
                 rd = request.getRequestDispatcher("overzichtVakken.jsp");
                 rd.forward(request, response);
+            }
+            } else{
+                response.sendRedirect("index.jsp");
             }
 
 

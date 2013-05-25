@@ -40,36 +40,43 @@ public class LoginServlet extends HttpServlet {
             emf = Persistence.createEntityManagerFactory("2TI3_Cominotto_Robin_project2013PU");
             EntityManager em = emf.createEntityManager();
             if (request.getParameter("inloggen") != null) {
-                out.println("hello");
+
                 String gebruikersnaam = request.getParameter("gebruikersnaam");
                 String wachtwoord = request.getParameter("wachtwoord");
                 Query q = em.createNamedQuery("Docenten.inloggen");
                 q.setParameter("voornaam", gebruikersnaam);
                 q.setParameter("familienaam", wachtwoord);
-                List<Docent>docent = q.getResultList();
+                List<Docent> docent = q.getResultList();
                 em.close();
-                if(docent!=null)
-                {
-                    
-                session.setAttribute("ingelogd", docent.get(0));
+                if (!docent.isEmpty()) {
+
+                    session.setAttribute("ingelogd", docent.get(0));
+                    response.sendRedirect("ManageServlet?examen=examen");
+                } else {
+                    String boodschap = "Verkeerde login gegevens!";
+                    String titel = "Login error";
+
+                    request.setAttribute("boodschap", boodschap);
+                    request.setAttribute("titel", titel);
+                    rd = request.getRequestDispatcher("boodschap.jsp");
+                    rd.forward(request, response);
                 }
-                
-               response.sendRedirect("ManageServlet?examen=examen");
-                
+
+
+
             } else if (request.getParameter("uitloggen") != null) {
-                
-               session.invalidate();
-               
-               
-               response.sendRedirect("ManageServlet?examen=examen");
-                
-            }
-            else if (request.getParameter("inloggenPagina") != null) {
-                out.println("hello");
-                
-                
-               response.sendRedirect("login.jsp");
-                
+
+                session.invalidate();
+
+
+                response.sendRedirect("ManageServlet?examen=examen");
+
+            } else if (request.getParameter("inloggenPagina") != null) {
+
+
+
+                response.sendRedirect("login.jsp");
+
             }
 
         } finally {

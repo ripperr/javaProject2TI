@@ -25,12 +25,12 @@ import javax.persistence.TemporalType;
  * @author robin
  */
 @NamedQueries({
-    @NamedQuery(name = "Examen.alle", query = "select e from Examen e "),
-    @NamedQuery(name = "Examen.zoekenOpDatum", query = "select e from Examen e where e.datum like :datum"),
-    @NamedQuery(name = "Examen.zoekenOpDocent", query = "select e from Examen e where e.docent.id like :docentId"),
-    @NamedQuery(name = "Examen.zoekenOpVak", query = "select e from Examen e where e.vak.id like :vakId"),
-    @NamedQuery(name = "Examen.zoekenOpLokaal", query = "select e from Examen e where e.lokaal.id like :lokaalId"),
-    @NamedQuery(name = "Examen.zoekenOpSoort", query = "select e from Examen e where e.soort like :soort")
+    @NamedQuery(name = "Examen.alle", query = "select e from Examen e where e.datum >= CURRENT_DATE"),
+    @NamedQuery(name = "Examen.zoekenOpDatum", query = "select e from Examen e where e.datum like :datum and e.datum >= CURRENT_DATE"),
+    @NamedQuery(name = "Examen.zoekenOpDocent", query = "select e from Examen e where e.docent.id like :docentId and e.datum >= CURRENT_DATE"),
+    @NamedQuery(name = "Examen.zoekenOpVak", query = "select e from Examen e where e.vak.id like :vakId and e.datum >= CURRENT_DATE"),
+    @NamedQuery(name = "Examen.zoekenOpLokaal", query = "select e from Examen e where e.lokaal.id like :lokaalId and e.datum >= CURRENT_DATE"),
+    @NamedQuery(name = "Examen.zoekenOpSoort", query = "select e from Examen e where e.soort like :soort and e.datum >= CURRENT_DATE")
 })
 @Entity
 public class Examen implements Serializable {

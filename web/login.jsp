@@ -41,9 +41,13 @@
                                 <td><input type="submit" name="inloggen" value="Log in" id = "inloggen" /></td>
                                 <td></td>
                             </tr>
+                          
                         </table>
 
 
+                    </form>
+                    <form action="DocentServlet">
+                        <input type="submit" value="Registreren" name="docentToevoegen" id="registreren"/>
                     </form>
                 </section>
             </div>

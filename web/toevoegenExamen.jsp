@@ -21,7 +21,7 @@
             <div class="holder_content">
 
                 <section class="group1">
-                    <form action="ManageServlet">
+                    <form action="ManageServlet" id="myform">
                         <table>
                             <tr>
                                 <th>Docent: </th>
@@ -111,7 +111,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td><input type="submit" value="Examen toevoegen" name="toevoegenExamenBevestigen"/></td>
+                                <td><input type="submit" value="Examen toevoegen" name="toevoegenExamenBevestigen" id="toevoegenExamenBevestigen"/></td>
                             </tr>
                         </table>
                             <input type="hidden" value="${examen.id}" name="examenId"/>
@@ -137,6 +137,23 @@
             function (){
                 $("#pikame").PikaChoose();
                 $("#datum").datepicker({dateFormat:"dd/mm/yy"});
+            });
+            function validatieOK(){
+                ok = true;
+                if($("#datum").val()==""){
+                    $("#datum").addClass("ui-state-error");
+                    ok = false;
+                }
+                else{
+                    $("#datum").removeClass("ui-state-error");
+                }
+                return ok;
+            }
+             $("myform").submit(function (e){
+               e.preventDefault();
+               if(validatieOK()){
+                   $("myform").submit();
+               }
             });
         </script>
 </html>

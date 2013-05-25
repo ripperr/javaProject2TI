@@ -12,7 +12,7 @@
         <table>
             <form id="toevoegen" id="toevoegen" action="DocentServlet" method="get">
                 <tr>
-                    <td><input type="submit" value="Docent toevoegen" name="toevoegenDocent"/></td>
+                    <td><input type="submit" value="Docent toevoegen" name="docentToevoegen"/></td>
                 </tr>
             </form>
 

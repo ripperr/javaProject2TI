@@ -41,310 +41,313 @@ public class ManageServlet extends HttpServlet {
         EntityManagerFactory emf = null;
         HttpSession session = request.getSession();
         try {
-            
-             RequestDispatcher rd = null;
-             emf = Persistence.createEntityManagerFactory("2TI3_Cominotto_Robin_project2013PU");
-             EntityManager em = emf.createEntityManager();
+
+            RequestDispatcher rd = null;
+            emf = Persistence.createEntityManagerFactory("2TI3_Cominotto_Robin_project2013PU");
+            EntityManager em = emf.createEntityManager();
 
 
-             if (session.getAttribute("soorten") == null) {
+            if (session.getAttribute("soorten") == null) {
 
-             Query q = em.createNamedQuery("Docenten.alle");
-             List<Docent> docenten = q.getResultList();
-             session.setAttribute("docenten", docenten);
-             q = em.createNamedQuery("Vakken.alle");
-             List<Vak> vakken = q.getResultList();
-             session.setAttribute("vakken", vakken);
-             q = em.createNamedQuery("ComputerLokalen.alle");
-             List<ComputerLokaal> computerLokalen = q.getResultList();
-             session.setAttribute("computerLokalen", computerLokalen);
-             q = em.createNamedQuery("GewoonLokalen.alle");
-             List<Lokaal> lokalen = q.getResultList();
-             session.setAttribute("gewoonLokalen", lokalen);
+                Query q = em.createNamedQuery("Docenten.alle");
+                List<Docent> docenten = q.getResultList();
+                session.setAttribute("docenten", docenten);
+                q = em.createNamedQuery("Vakken.alle");
+                List<Vak> vakken = q.getResultList();
+                session.setAttribute("vakken", vakken);
+                q = em.createNamedQuery("ComputerLokalen.alle");
+                List<ComputerLokaal> computerLokalen = q.getResultList();
+                session.setAttribute("computerLokalen", computerLokalen);
+                q = em.createNamedQuery("GewoonLokalen.alle");
+                List<Lokaal> lokalen = q.getResultList();
+                session.setAttribute("gewoonLokalen", lokalen);
 
-             Soort[] soorten = Soort.values();
-
-
-             session.setAttribute("soorten", soorten);
+                Soort[] soorten = Soort.values();
 
 
-             }
-
-             if (!(request.getParameter("home") == null)) {
-             rd = request.getRequestDispatcher("index.jsp");
-             rd.forward(request, response);
-             } else if (!(request.getParameter("examen") == null)) {
-
-             Query q = em.createNamedQuery("Examen.alle");
-             List<Examen> examens = q.getResultList();
-
-             em.close();
-             request.setAttribute("examens", examens);
-
-             rd = request.getRequestDispatcher("overzichtExamens.jsp");
-             rd.forward(request, response);
-             } else if (!(request.getParameter("datum") == null)) {
-
-             String datum = request.getParameter("datum");
-             String[] datumArray = datum.split("/");
-             datum = datumArray[2] + "-" + datumArray[1] + "-" + datumArray[0];
-             Query q = em.createNamedQuery("Examen.zoekenOpDatum");
-             q.setParameter("datum", datum);
-             List<Examen> examens = q.getResultList();
-             em.close();
-             request.setAttribute("examens", examens);
-             String titel = " op datum: " + datumArray[0] + "/" + datumArray[1] + "/" + datumArray[2];
-             request.setAttribute("titel", titel);
-             rd = request.getRequestDispatcher("overzichtExamens.jsp");
-             rd.forward(request, response);
-
-             } else if (!(request.getParameter("docent") == null)) {
-             String docentId = request.getParameter("docent");
-
-             Query q = em.createNamedQuery("Examen.zoekenOpDocent");
-             q.setParameter("docentId", docentId);
-             List<Examen> examens = q.getResultList();
-
-             request.setAttribute("examens", examens);
-             Docent docent = em.find(Docent.class, Long.parseLong(docentId));
-             String titel = " op docent: " + docent.getVoornaam() + " " + docent.getFamilienaam();
-             request.setAttribute("titel", titel);
-             em.close();
-             rd = request.getRequestDispatcher("overzichtExamens.jsp");
-             rd.forward(request, response);
-             } else if (!(request.getParameter("vak") == null)) {
-             String vakId = request.getParameter("vak");
-
-             Query q = em.createNamedQuery("Examen.zoekenOpVak");
-             q.setParameter("vakId", vakId);
-             List<Examen> examens = q.getResultList();
-
-             request.setAttribute("examens", examens);
-             Vak vak = em.find(Vak.class, Long.parseLong(vakId));
-             String titel = " op vak: " + vak.getNaam();
-             request.setAttribute("titel", titel);
-             em.close();
-             rd = request.getRequestDispatcher("overzichtExamens.jsp");
-             rd.forward(request, response);
-             } else if (!(request.getParameter("lokaal") == null)) {
-             String lokaalId = request.getParameter("lokaal");
-
-             Query q = em.createNamedQuery("Examen.zoekenOpLokaal");
-             q.setParameter("lokaalId", lokaalId);
-             List<Examen> examens = q.getResultList();
-
-             request.setAttribute("examens", examens);
-             Lokaal lokaal = em.find(Lokaal.class, Long.parseLong(lokaalId));
-             String titel = " op lokaal: " + lokaal.getNummer();
-             request.setAttribute("titel", titel);
-             em.close();
-             rd = request.getRequestDispatcher("overzichtExamens.jsp");
-             rd.forward(request, response);
-             } else if (!(request.getParameter("soort") == null)) {
-             String soort = request.getParameter("soort");
-
-             Query q = em.createNamedQuery("Examen.zoekenOpSoort");
-             q.setParameter("soort", soort);
-             List<Examen> examens = q.getResultList();
+                session.setAttribute("soorten", soorten);
 
 
-             String titel = " op soort: " + soort;
-             request.setAttribute("titel", titel);
-             request.setAttribute("examens", examens);
-             em.close();
-             rd = request.getRequestDispatcher("overzichtExamens.jsp");
-             rd.forward(request, response);
-             } else if (!(request.getParameter("toevoegenExamen") == null)) {
-             Examen examen = new Examen();
-             Query q = em.createNamedQuery("Lokaal.alle");
-             List<Lokaal> lokalen = q.getResultList();
+            }
 
-             request.setAttribute("lokalen", lokalen);
-             request.setAttribute("examen", examen);
-             em.close();
-             rd = request.getRequestDispatcher("toevoegenExamen.jsp");
-             rd.forward(request, response);
-             } else if (!(request.getParameter("wijzigenExamen") == null)) {
-             String examenId = request.getParameter("wijzigenExamen");
-             Examen examen = em.find(Examen.class, Long.parseLong(examenId));
+            if (!(request.getParameter("home") == null)) {
+                rd = request.getRequestDispatcher("index.jsp");
+                rd.forward(request, response);
+            } else if (!(request.getParameter("examen") == null)) {
 
-             Query q = em.createNamedQuery("Lokaal.alle");
-             List<Lokaal> lokalen = q.getResultList();
-             em.close();
-             request.setAttribute("lokalen", lokalen);
-             request.setAttribute("examen", examen);
-             rd = request.getRequestDispatcher("toevoegenExamen.jsp");
-             rd.forward(request, response);
-             } else if (!(request.getParameter("toevoegenExamenBevestigen") == null)) {
-             String docentId = request.getParameter("docentExamen");
-             String vakId = request.getParameter("vakExamen");
-             String datum = request.getParameter("datumExamen");
-             String lokaalId = request.getParameter("lokaalExamen");
-             String soort = request.getParameter("soortExamen");
-             String examenId = request.getParameter("examenId");
-             Docent docent = em.find(Docent.class, Long.parseLong(docentId));
-             Vak vak = em.find(Vak.class, Long.parseLong(vakId));
-             Lokaal lokaal = em.find(Lokaal.class, Long.parseLong(lokaalId));
+                Query q = em.createNamedQuery("Examen.alle");
+                List<Examen> examens = q.getResultList();
+
+                em.close();
+                request.setAttribute("examens", examens);
+
+                rd = request.getRequestDispatcher("overzichtExamens.jsp");
+                rd.forward(request, response);
+            } else if (!(request.getParameter("datum") == null)) {
+
+                String datum = request.getParameter("datum");
+                String[] datumArray = datum.split("/");
+                datum = datumArray[2] + "-" + datumArray[1] + "-" + datumArray[0];
+                Query q = em.createNamedQuery("Examen.zoekenOpDatum");
+                q.setParameter("datum", datum);
+                List<Examen> examens = q.getResultList();
+                em.close();
+                request.setAttribute("examens", examens);
+                String titel = " op datum: " + datumArray[0] + "/" + datumArray[1] + "/" + datumArray[2];
+                request.setAttribute("titel", titel);
+                rd = request.getRequestDispatcher("overzichtExamens.jsp");
+                rd.forward(request, response);
+
+            } else if (!(request.getParameter("docent") == null)) {
+                String docentId = request.getParameter("docent");
+
+                Query q = em.createNamedQuery("Examen.zoekenOpDocent");
+                q.setParameter("docentId", docentId);
+                List<Examen> examens = q.getResultList();
+
+                request.setAttribute("examens", examens);
+                Docent docent = em.find(Docent.class, Long.parseLong(docentId));
+                String titel = " op docent: " + docent.getVoornaam() + " " + docent.getFamilienaam();
+                request.setAttribute("titel", titel);
+                em.close();
+                rd = request.getRequestDispatcher("overzichtExamens.jsp");
+                rd.forward(request, response);
+            } else if (!(request.getParameter("vak") == null)) {
+                String vakId = request.getParameter("vak");
+
+                Query q = em.createNamedQuery("Examen.zoekenOpVak");
+                q.setParameter("vakId", vakId);
+                List<Examen> examens = q.getResultList();
+
+                request.setAttribute("examens", examens);
+                Vak vak = em.find(Vak.class, Long.parseLong(vakId));
+                String titel = " op vak: " + vak.getNaam();
+                request.setAttribute("titel", titel);
+                em.close();
+                rd = request.getRequestDispatcher("overzichtExamens.jsp");
+                rd.forward(request, response);
+            } else if (!(request.getParameter("lokaal") == null)) {
+                String lokaalId = request.getParameter("lokaal");
+
+                Query q = em.createNamedQuery("Examen.zoekenOpLokaal");
+                q.setParameter("lokaalId", lokaalId);
+                List<Examen> examens = q.getResultList();
+
+                request.setAttribute("examens", examens);
+                Lokaal lokaal = em.find(Lokaal.class, Long.parseLong(lokaalId));
+                String titel = " op lokaal: " + lokaal.getNummer();
+                request.setAttribute("titel", titel);
+                em.close();
+                rd = request.getRequestDispatcher("overzichtExamens.jsp");
+                rd.forward(request, response);
+            } else if (!(request.getParameter("soort") == null)) {
+                String soort = request.getParameter("soort");
+
+                Query q = em.createNamedQuery("Examen.zoekenOpSoort");
+                q.setParameter("soort", soort);
+                List<Examen> examens = q.getResultList();
+
+
+                String titel = " op soort: " + soort;
+                request.setAttribute("titel", titel);
+                request.setAttribute("examens", examens);
+                em.close();
+                rd = request.getRequestDispatcher("overzichtExamens.jsp");
+                rd.forward(request, response);
+            } else if (session.getAttribute("ingelogd") != null) {
+                if (!(request.getParameter("toevoegenExamen") == null)) {
+                    Examen examen = new Examen();
+                    Query q = em.createNamedQuery("Lokaal.alle");
+                    List<Lokaal> lokalen = q.getResultList();
+
+                    request.setAttribute("lokalen", lokalen);
+                    request.setAttribute("examen", examen);
+                    em.close();
+                    rd = request.getRequestDispatcher("toevoegenExamen.jsp");
+                    rd.forward(request, response);
+                } else if (!(request.getParameter("wijzigenExamen") == null)) {
+                    String examenId = request.getParameter("wijzigenExamen");
+                    Examen examen = em.find(Examen.class, Long.parseLong(examenId));
+
+                    Query q = em.createNamedQuery("Lokaal.alle");
+                    List<Lokaal> lokalen = q.getResultList();
+                    em.close();
+                    request.setAttribute("lokalen", lokalen);
+                    request.setAttribute("examen", examen);
+                    rd = request.getRequestDispatcher("toevoegenExamen.jsp");
+                    rd.forward(request, response);
+                } else if (!(request.getParameter("toevoegenExamenBevestigen") == null)) {
+                    String docentId = request.getParameter("docentExamen");
+                    String vakId = request.getParameter("vakExamen");
+                    String datum = request.getParameter("datumExamen");
+                    String lokaalId = request.getParameter("lokaalExamen");
+                    String soort = request.getParameter("soortExamen");
+                    String examenId = request.getParameter("examenId");
+                    Docent docent = em.find(Docent.class, Long.parseLong(docentId));
+                    Vak vak = em.find(Vak.class, Long.parseLong(vakId));
+                    Lokaal lokaal = em.find(Lokaal.class, Long.parseLong(lokaalId));
 
 
 
 
-             Examen examen = new Examen();
-             if (!examenId.isEmpty() && !(examenId == null)) {
-             examen.setId(Long.parseLong(examenId));
-             }
+                    Examen examen = new Examen();
+                    if (!examenId.isEmpty() && !(examenId == null)) {
+                        examen.setId(Long.parseLong(examenId));
+                    }
 
-             examen.setDocent(docent);
-             examen.setVak(vak);
-             examen.setLokaal(lokaal);
-             examen.setSoort(Soort.valueOf(soort));
+                    examen.setDocent(docent);
+                    examen.setVak(vak);
+                    examen.setLokaal(lokaal);
+                    examen.setSoort(Soort.valueOf(soort));
 
-             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-             GregorianCalendar gregorianCalendar = new GregorianCalendar();
-             gregorianCalendar.setTime(simpleDateFormat.parse(datum));
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    GregorianCalendar gregorianCalendar = new GregorianCalendar();
+                    gregorianCalendar.setTime(simpleDateFormat.parse(datum));
 
-             examen.setDatum(gregorianCalendar);
+                    examen.setDatum(gregorianCalendar);
 
-             EntityTransaction tx = em.getTransaction();
+                    EntityTransaction tx = em.getTransaction();
 
-             tx.begin();
-             if (!examenId.isEmpty() && !(examenId == null)) {
-             em.merge(examen);
-             } else {
-             em.persist(examen);
-             }
-             tx.commit();
+                    tx.begin();
+                    if (!examenId.isEmpty() && !(examenId == null)) {
+                        em.merge(examen);
+                    } else {
+                        em.persist(examen);
+                    }
+                    tx.commit();
 
-             em.close();
-             rd = request.getRequestDispatcher("overzichtExamens.jsp");
-             rd.forward(request, response);
-             }  else if (!(request.getParameter("deleteExamen") == null)) {
-             String examenId = request.getParameter("deleteExamen");
-             Examen examen = em.find(Examen.class, Long.parseLong(examenId));
+                    em.close();
+                    rd = request.getRequestDispatcher("overzichtExamens.jsp");
+                    rd.forward(request, response);
+                } else if (!(request.getParameter("deleteExamen") == null)) {
+                    String examenId = request.getParameter("deleteExamen");
+                    Examen examen = em.find(Examen.class, Long.parseLong(examenId));
 
 
-             EntityTransaction tx = em.getTransaction();
+                    EntityTransaction tx = em.getTransaction();
 
-             tx.begin();
-             em.remove(examen);
-             tx.commit();
-             Query q = em.createNamedQuery("Docenten.alle");
-             List<Docent> docenten = q.getResultList();
+                    tx.begin();
+                    em.remove(examen);
+                    tx.commit();
+                    Query q = em.createNamedQuery("Docenten.alle");
+                    List<Docent> docenten = q.getResultList();
 
-             session.setAttribute("docenten", docenten);
-             q = em.createNamedQuery("Examen.alle");
-             List<Examen> examens = q.getResultList();
+                    session.setAttribute("docenten", docenten);
+                    q = em.createNamedQuery("Examen.alle");
+                    List<Examen> examens = q.getResultList();
 
-             session.setAttribute("examens", examens);
-             em.close();
+                    session.setAttribute("examens", examens);
+                    em.close();
 
-             rd = request.getRequestDispatcher("overzichtExamens.jsp");
-             rd.forward(request, response);
-             }
-             
+                    rd = request.getRequestDispatcher("overzichtExamens.jsp");
+                    rd.forward(request, response);
+                }
+            } else {
+                response.sendRedirect("index.jsp");
+            }
 
 
             //let op: gebruik hier de juiste naam van de persistence unit
             //(zoek op in persistence.xml)
-            
+
             /*
-            emf = Persistence.createEntityManagerFactory("2TI3_Cominotto_Robin_project2013PU");
+             emf = Persistence.createEntityManagerFactory("2TI3_Cominotto_Robin_project2013PU");
 
-            EntityManager em = emf.createEntityManager();
-
-
-
-            EntityTransaction tx = em.getTransaction();
-            Docent docentEen = new Docent();
-            Docent docentTwee = new Docent();
-
-            Examen examenEen = new Examen();
-            Examen examenTwee = new Examen();
-            Examen examenDrie = new Examen();
-
-            ComputerLokaal computerLokaal = new ComputerLokaal();
-            GewoonLokaal gewoonLokaal = new GewoonLokaal();
-            Vak vakEen = new Vak();
-            Vak vakTwee = new Vak();
-            Vak vakDrie = new Vak();
-            tx.begin();
-
-            computerLokaal.setAantalPlaatsen(100);
-            computerLokaal.setNummer("D101");
-            computerLokaal.setLaptop(false);
-            computerLokaal.setInfo("Niet roken!");
-            em.persist(computerLokaal);
-
-
-            vakEen.setNummer("s5454");
-            vakEen.setNaam("C#");
-            em.persist(vakEen);
-
-
-            docentEen.setNummer("r00001");
-            docentEen.setVoornaam("Miranda");
-            docentEen.setFamilienaam("Decabooter");
-            docentEen.setEmail("Miranda.Decabooter@khk.be");
-            em.persist(docentEen);
+             EntityManager em = emf.createEntityManager();
 
 
 
-            examenEen.setVak(vakEen);
-            examenEen.setDocent(docentEen);
-            examenEen.setDatum(new GregorianCalendar());
-            examenEen.setLokaal(computerLokaal);
-            examenEen.setSoort(Soort.SCHRIFTELIJK);
-            em.persist(examenEen);
+             EntityTransaction tx = em.getTransaction();
+             Docent docentEen = new Docent();
+             Docent docentTwee = new Docent();
+
+             Examen examenEen = new Examen();
+             Examen examenTwee = new Examen();
+             Examen examenDrie = new Examen();
+
+             ComputerLokaal computerLokaal = new ComputerLokaal();
+             GewoonLokaal gewoonLokaal = new GewoonLokaal();
+             Vak vakEen = new Vak();
+             Vak vakTwee = new Vak();
+             Vak vakDrie = new Vak();
+             tx.begin();
+
+             computerLokaal.setAantalPlaatsen(100);
+             computerLokaal.setNummer("D101");
+             computerLokaal.setLaptop(false);
+             computerLokaal.setInfo("Niet roken!");
+             em.persist(computerLokaal);
+
+
+             vakEen.setNummer("s5454");
+             vakEen.setNaam("C#");
+             em.persist(vakEen);
+
+
+             docentEen.setNummer("r00001");
+             docentEen.setVoornaam("Miranda");
+             docentEen.setFamilienaam("Decabooter");
+             docentEen.setEmail("Miranda.Decabooter@khk.be");
+             em.persist(docentEen);
 
 
 
-
-            //Insert 2
-            gewoonLokaal.setAantalPlaatsen(50);
-            gewoonLokaal.setNummer("Noord-Korea");
-            gewoonLokaal.setWhiteBoard(true);
-            em.persist(gewoonLokaal);
-
-            vakTwee.setNummer("s5455");
-            vakTwee.setNaam("Dynamische webapplicaties in PHP");
-            em.persist(vakTwee);
-
-
-
-            examenTwee.setVak(vakTwee);
-            examenTwee.setDocent(docentEen);
-            examenTwee.setDatum(new GregorianCalendar());
-            examenTwee.setLokaal(gewoonLokaal);
-            examenTwee.setSoort(Soort.SCHRIFTELIJK);
-            em.persist(examenTwee);
-
-            //Insert 3
-
-
-            vakDrie.setNummer("s5456");
-            vakDrie.setNaam("UML");
-            em.persist(vakDrie);
-
-            docentTwee.setNummer("r00002");
-            docentTwee.setVoornaam("Christine");
-            docentTwee.setFamilienaam("Smeets");
-            docentTwee.setEmail("Christine.Smeets@khk.be");
-            em.persist(docentTwee);
-
-            examenDrie.setVak(vakDrie);
-            examenDrie.setDocent(docentTwee);
-            examenDrie.setDatum(new GregorianCalendar());
-            examenDrie.setLokaal(gewoonLokaal);
-            examenDrie.setSoort(Soort.SCHRIFTELIJK);
-            em.persist(examenDrie);
-            tx.commit();
-
-            em.close();
+             examenEen.setVak(vakEen);
+             examenEen.setDocent(docentEen);
+             examenEen.setDatum(new GregorianCalendar());
+             examenEen.setLokaal(computerLokaal);
+             examenEen.setSoort(Soort.SCHRIFTELIJK);
+             em.persist(examenEen);
 
 
 
 
-*/
+             //Insert 2
+             gewoonLokaal.setAantalPlaatsen(50);
+             gewoonLokaal.setNummer("Noord-Korea");
+             gewoonLokaal.setWhiteBoard(true);
+             em.persist(gewoonLokaal);
+
+             vakTwee.setNummer("s5455");
+             vakTwee.setNaam("Dynamische webapplicaties in PHP");
+             em.persist(vakTwee);
+
+
+
+             examenTwee.setVak(vakTwee);
+             examenTwee.setDocent(docentEen);
+             examenTwee.setDatum(new GregorianCalendar());
+             examenTwee.setLokaal(gewoonLokaal);
+             examenTwee.setSoort(Soort.SCHRIFTELIJK);
+             em.persist(examenTwee);
+
+             //Insert 3
+
+
+             vakDrie.setNummer("s5456");
+             vakDrie.setNaam("UML");
+             em.persist(vakDrie);
+
+             docentTwee.setNummer("r00002");
+             docentTwee.setVoornaam("Christine");
+             docentTwee.setFamilienaam("Smeets");
+             docentTwee.setEmail("Christine.Smeets@khk.be");
+             em.persist(docentTwee);
+
+             examenDrie.setVak(vakDrie);
+             examenDrie.setDocent(docentTwee);
+             examenDrie.setDatum(new GregorianCalendar());
+             examenDrie.setLokaal(gewoonLokaal);
+             examenDrie.setSoort(Soort.SCHRIFTELIJK);
+             em.persist(examenDrie);
+             tx.commit();
+
+             em.close();
+
+
+
+
+             */
 
         } catch (Exception e) {
             e.printStackTrace();

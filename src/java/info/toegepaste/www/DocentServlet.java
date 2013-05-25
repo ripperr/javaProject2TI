@@ -43,20 +43,7 @@ public class DocentServlet extends HttpServlet {
             RequestDispatcher rd = null;
             emf = Persistence.createEntityManagerFactory("2TI3_Cominotto_Robin_project2013PU");
             EntityManager em = emf.createEntityManager();
-
-            if (!(request.getParameter("docenten") == null)) {
-
-
-                Query q = em.createNamedQuery("Docenten.alle");
-                List<Docent> docenten = q.getResultList();
-
-                em.close();
-                request.setAttribute("docenten", docenten);
-
-                rd = request.getRequestDispatcher("overzichtDocenten.jsp");
-                rd.forward(request, response);
-
-            } else if (!(request.getParameter("docentToevoegen") == null)) {
+            if (!(request.getParameter("docentToevoegen") == null)) {
                 rd = request.getRequestDispatcher("toevoegenDocent.jsp");
                 rd.forward(request, response);
             } else if (!(request.getParameter("docentToevoegenBevestigen") == null)) {
@@ -89,12 +76,27 @@ public class DocentServlet extends HttpServlet {
 
                 Query q = em.createNamedQuery("Docenten.alle");
                 List<Docent> docenten = q.getResultList();
-                session.setAttribute("docenten", docenten);
+                request.setAttribute("docenten", docenten);
                 em.close();
+
+                rd = request.getRequestDispatcher("index.jsp");
+                rd.forward(request, response);
+            } 
+           else if(session.getAttribute("ingelogd")!=null){
+            if (!(request.getParameter("docenten") == null)) {
+
+
+                Query q = em.createNamedQuery("Docenten.alle");
+                List<Docent> docenten = q.getResultList();
+
+                em.close();
+                request.setAttribute("docenten", docenten);
 
                 rd = request.getRequestDispatcher("overzichtDocenten.jsp");
                 rd.forward(request, response);
-            } else if (!(request.getParameter("wijzigenDocent") == null)) {
+
+            }
+            else if (!(request.getParameter("wijzigenDocent") == null)) {
 
 
                 String docentId = request.getParameter("wijzigenDocent");
@@ -140,6 +142,12 @@ public class DocentServlet extends HttpServlet {
                 rd = request.getRequestDispatcher("overzichtDocenten.jsp");
                 rd.forward(request, response);
             }
+            }
+           else{
+               response.sendRedirect("index.jsp");
+           }
+            
+            
 
 
 

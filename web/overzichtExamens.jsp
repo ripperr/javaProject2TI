@@ -88,6 +88,8 @@
                         </span>
                         </p>
                     </div>
+                     <c:choose>
+                            <c:when test="${sessionScope.ingelogd!=null}">
                     <table>
                         <form id="toevoegen" id="toevoegen" action="ManageServlet" method="get">
                             <tr>
@@ -96,6 +98,8 @@
                         </form>
 
                     </table>
+                            </c:when>
+                     </c:choose>
                     <table border="1">
                         <tr>
                             <th>Vaknaam: </th>
