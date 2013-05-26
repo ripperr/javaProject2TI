@@ -71,7 +71,7 @@ public class DocentServlet extends HttpServlet {
 
                 Query q = em.createNamedQuery("Docenten.alle");
                 List<Docent> docenten = q.getResultList();
-                request.setAttribute("docenten", docenten);
+                session.setAttribute("docenten", docenten);
                 em.close();
 
                 rd = request.getRequestDispatcher("index.jsp");
@@ -130,11 +130,11 @@ public class DocentServlet extends HttpServlet {
                 Query q = em.createNamedQuery("Docenten.alle");
                 List<Docent> docenten = q.getResultList();
 
-                request.setAttribute("docenten", docenten);
+                session.setAttribute("docenten", docenten);
 
                 em.close();
 
-                rd = request.getRequestDispatcher("overzichtDocenten.jsp");
+                rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
             }
             }

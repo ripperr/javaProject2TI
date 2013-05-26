@@ -213,7 +213,7 @@ public class ManageServlet extends HttpServlet {
                     tx.commit();
 
                     em.close();
-                    rd = request.getRequestDispatcher("overzichtExamens.jsp");
+                    rd = request.getRequestDispatcher("index.jsp");
                     rd.forward(request, response);
                 } else if (!(request.getParameter("deleteExamen") == null)) {
                     String examenId = request.getParameter("deleteExamen");

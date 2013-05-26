@@ -115,9 +115,9 @@ public class LokaalServlet extends HttpServlet {
                 tx.commit();
                 Query q = em.createNamedQuery("Lokaal.alle");
                 List<Lokaal> lokalen = q.getResultList();
-                request.setAttribute("lokalen", lokalen);
+                session.setAttribute("lokalen", lokalen);
                 em.close();
-                rd = request.getRequestDispatcher("overzichtLokalen.jsp");
+                rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
             } else if (!(request.getParameter("deleteLokaal") == null)) {
                 String lokaalId = request.getParameter("deleteLokaal");
@@ -144,11 +144,11 @@ public class LokaalServlet extends HttpServlet {
                 Query q = em.createNamedQuery("Lokaal.alle");
                 List<Lokaal> lokalen = q.getResultList();
 
-                request.setAttribute("lokalen", lokalen);
+                session.setAttribute("lokalen", lokalen);
 
                 em.close();
 
-                rd = request.getRequestDispatcher("overzichtLokalen.jsp");
+                rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
             } else if (!(request.getParameter("wijzigenLokaal") == null)) {
                 String[] lokalen = new String[]{"GewoonLokaal", "ComputerLokaal"};

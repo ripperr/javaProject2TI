@@ -122,11 +122,11 @@ public class VakServlet extends HttpServlet {
                 Query q = em.createNamedQuery("Vakken.alle");
                 List<Vak> vakken = q.getResultList();
 
-                request.setAttribute("vakken", vakken);
+                session.setAttribute("vakken", vakken);
 
                 em.close();
 
-                rd = request.getRequestDispatcher("overzichtVakken.jsp");
+                rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
             }
             } else{
