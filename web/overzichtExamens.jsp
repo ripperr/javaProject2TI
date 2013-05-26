@@ -11,7 +11,7 @@
     <section class="group1">
         <h3>Overzicht examens ${titel}</h3>
         <div><p>Zoeken : 
-            <form action="ManageServlet" method="get">
+            <form action="ManageServlet" method="get" id="myform" name="myform">
                 <select name="zoeken" id="zoeken">
                     <option value="0">--Kies optie--</option>
                     <option value="1">Op datum</option>
@@ -150,32 +150,28 @@
 
 </body>
 <script language="javascript">
+   
     function validatieOK(){
         ok = true;
-        var timestamp = Date.parse($("input[name='datum']").val()) 
-
-        if (!isNaN(timestamp) == false) { 
+        if($("#datepicker").val()==""){
             $("#datepicker").addClass("ui-state-error");
             ok = false;
-        } 
+        }
         else{
             $("#datepicker").removeClass("ui-state-error");
         }
         return ok;
     }
-    $(function()
-    {
-                
-        $("#datepickerSubmit").click(function(e){
-            if(validatieOK()){
-                return true;
-            }
-            else{
-                e.preventDefault();
+    $("#zoekenOpDatum").submit(function (e){
+        if(validatieOK()){
+            return true;
+        }
+        else{
+            e.preventDefault();
  
-            } 
-        });
+        }
     });
+    
     $(document).ready(
             
     function (){
