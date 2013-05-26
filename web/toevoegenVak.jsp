@@ -82,9 +82,12 @@
         
     }
     $("#myform").submit(function (e){
-        e.preventDefault();
         if(validatieOK()){
-            $("#myform").submit();
+            return true;
+        }
+        else{
+            e.preventDefault();
+ 
         }
     });
 </script>

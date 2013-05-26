@@ -72,7 +72,7 @@
         $("#datum").datepicker({dateFormat:"dd/mm/yy"});
     });
     function validatieOK(){
-        ok = true;
+        var ok = true;
         if($("#nummer").val()==""){
             $("#nummer").addClass("ui-state-error");
             ok = false;
@@ -103,12 +103,16 @@
         }
         return ok;
     }
-     $("#myform").submit(function (e){
-               e.preventDefault();
-               if(validatieOK()){
-                   $("#myform").submit();
-               }
-            });
+    $("#myform").on('submit',function (e){
+        if(validatieOK()){
+            return true;
+        }
+        else{
+            e.preventDefault();
+ 
+        }
+              
+    });
 </script>
 </body> 
 </html>

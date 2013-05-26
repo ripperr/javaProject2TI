@@ -234,12 +234,16 @@
         }
         return ok;
     }
-     $("#myform").submit(function (e){
-               e.preventDefault();
-               if(validatieOK()){
-                   $("#myform").submit();
-               }
-            });
+    $("#myform").submit(function (e){
+        
+        if(validatieOK()){
+            return true;
+        }
+        else{
+            e.preventDefault();
+ 
+        }
+    });
              
           
         
