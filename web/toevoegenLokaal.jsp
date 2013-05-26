@@ -234,10 +234,10 @@
         }
         return ok;
     }
-     $("myform").submit(function (e){
+     $("#myform").submit(function (e){
                e.preventDefault();
                if(validatieOK()){
-                   $("myform").submit();
+                   $("#myform").submit();
                }
             });
              

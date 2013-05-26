@@ -61,7 +61,7 @@
 <script language="javascript">
     function validatieOK(){
         ok = true;
-        var timestamp = Date.parse($("input[name='datum']").val()) 
+        var timestamp = Date.parse($("input[name='datum']").val()); 
 
         if (!isNaN(timestamp) == false) { 
             $("#datepicker").addClass("ui-state-error");

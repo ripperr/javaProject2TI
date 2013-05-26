@@ -21,7 +21,7 @@
 <div class="holder_content">
 
     <section class="group1">
-        <form action="DocentServlet" id="myform">
+        <form action="DocentServlet" id="myform" name="myform">
             <table>
                 <tr>
                     <th>Voornaam: </th>
@@ -64,8 +64,8 @@
 <!--start footer-->
 <%@ include file="footer.jsp" %>
 <!--end footer-->
-<!-- Free template distributed by http://freehtml5templates.com -->   
-</body> <script language="javascript">
+<!-- Free template distributed by http://freehtml5templates.com -->
+<script language="javascript">
     $(document).ready(
     function (){
         $("#pikame").PikaChoose();
@@ -103,11 +103,12 @@
         }
         return ok;
     }
-     $("myform").submit(function (e){
+     $("#myform").submit(function (e){
                e.preventDefault();
                if(validatieOK()){
-                   $("myform").submit();
+                   $("#myform").submit();
                }
             });
 </script>
+</body> 
 </html>
