@@ -63,29 +63,7 @@
 
 </body>
 <script language="javascript">
-    function validatieOK(){
-        ok = true;
-        var timestamp = Date.parse($("input[name='datum']").val()) 
-
-        if (!isNaN(timestamp) == false) { 
-            $("#datepicker").addClass("ui-state-error");
-            ok = false;
-        } 
-        else{
-            $("#datepicker").removeClass("ui-state-error");
-        }
-        return ok;
-    }
-    $(function()
-    {
-                
-        $("#datepickerSubmit").click(function(e){
-            e.preventDefault();
-            if(validatieOK()){
-                $("#zoekenOpDatum").submit();
-            }
-        });
-    });
+   
     $(document).ready(
             
     function (){
