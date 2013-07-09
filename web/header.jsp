@@ -13,7 +13,7 @@
 
     You should have received a copy of the GNU General Public License
     along with javaProject2TI.  If not, see <http://www.gnu.org/licenses/>.
---!>
+-->
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
