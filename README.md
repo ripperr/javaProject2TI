@@ -12,7 +12,7 @@ b.	Implementeer mbv JPA de mapping voor dit klassendiagram. Deadline (opleveren 
 dinsdag 30 april 2013 16u35
 
 Kies zelf welke strategy je neemt om de overerving te mappen. 
-![ScreenShot](https://raw.github.com/robin-cominotto/javaProject2TI/master/UML%20schema.jpg?login=robin-cominotto&token=49bd0d4d1926ead5a94332e05265b647)
+![ScreenShot](https://raw.github.com/robin-cominotto/javaProject2TI/master/UML%20schema.jpg)
 
 
 Behoud de namen van de kolommen en tabellen volgens bovenstaand schema. Voeg zelf aan de tabellen gegevens toe om te kunnen testen.
